@@ -4,6 +4,7 @@ import { UserRole } from '@/lib/database.types';
 import LogoutButton from '../components/logout-button';
 import UserRoleBadge from '../components/user-role-badge';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default async function DashboardLayout({
   children,
@@ -27,9 +28,14 @@ export default async function DashboardLayout({
         <div className="flex min-h-0 flex-1 flex-col border-r border-gray-200 bg-white">
           <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
             <div className="flex flex-shrink-0 items-center px-4">
-              <Link href="/dashboard" className="text-2xl font-bold text-blue-600">
-                <span className="inline-block">Swim</span>
-                <span className="inline-block text-blue-800">Trackr</span>
+              <Link href="/dashboard" className="flex items-center">
+                <Image
+                  src="/SwimTrackr-Logo.png"
+                  alt="SwimTrackr Logo"
+                  width={150}
+                  height={40}
+                  className="h-auto"
+                />
               </Link>
             </div>
             
@@ -160,9 +166,14 @@ export default async function DashboardLayout({
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Mobile header */}
         <div className="md:hidden bg-white border-b border-gray-200 flex items-center justify-between px-4 py-2">
-          <Link href="/dashboard" className="text-xl font-bold text-blue-600">
-            <span className="inline-block">Swim</span>
-            <span className="inline-block text-blue-800">Trackr</span>
+          <Link href="/dashboard" className="flex items-center">
+            <Image
+              src="/SwimTrackr-Logo.png"
+              alt="SwimTrackr Logo"
+              width={120}
+              height={32}
+              className="h-auto"
+            />
           </Link>
           
           {/* Mobile menu button */}
