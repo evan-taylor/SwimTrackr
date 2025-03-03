@@ -35,3 +35,8 @@ next-env.d.ts
 
 # Large binary files
 *.node
+
+
+/.cursor/
+/.next/
+/.vscode/
