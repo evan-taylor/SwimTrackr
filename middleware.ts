@@ -1,43 +1,41 @@
 import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import type { Database } from '@/lib/database.types';
 
-export async function middleware(request: NextRequest) {
+export const middleware = async (request: NextRequest) => {
+  // Create a response object
   const res = NextResponse.next();
-  const supabase = createMiddlewareClient<Database>({ req: request, res });
+
+  // Create a Supabase client configured to use cookies
+  const supabase = createMiddlewareClient({ req: request, res });
 
   // Refresh session if expired
   const { data: { session } } = await supabase.auth.getSession();
 
-  // If accessing a protected route and not authenticated, redirect to login
-  if (!session && !request.nextUrl.pathname.startsWith('/auth/')) {
-    const redirectUrl = request.nextUrl.clone();
-    redirectUrl.pathname = '/auth/login';
-    redirectUrl.searchParams.set('redirectTo', request.nextUrl.pathname);
-    return NextResponse.redirect(redirectUrl);
-  }
-
-  // If there's a session and the user is trying to access an auth page
-  if (session && request.nextUrl.pathname.startsWith('/auth/')) {
-    const redirectUrl = request.nextUrl.clone();
-    redirectUrl.pathname = '/dashboard';
-    return NextResponse.redirect(redirectUrl);
+  // Set session cookie if it exists
+  if (session) {
+    res.cookies.set({
+      name: 'session',
+      value: JSON.stringify(session),
+      path: '/',
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+    });
   }
 
   return res;
-}
+};
 
+// Ensure the middleware is only called for relevant paths
 export const config = {
   matcher: [
     /*
-     * Match all request paths except:
+     * Match all request paths except for the ones starting with:
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      * - public folder
-     * - api routes
      */
-    '/((?!_next/static|_next/image|favicon.ico|public|api).*)',
+    '/((?!_next/static|_next/image|favicon.ico|public/).*)',
   ],
 }; 
