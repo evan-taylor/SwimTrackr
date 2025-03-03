@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 import type { Database } from '@/lib/database.types';
 
 // Add runtime configuration
-export const runtime = 'edge';
+export const runtime = 'experimental-edge';
 
 export async function middleware(request: NextRequest) {
   try {
