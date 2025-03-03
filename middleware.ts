@@ -7,25 +7,46 @@ import type { Database } from '@/lib/database.types';
 export const runtime = 'experimental-edge';
 
 export async function middleware(request: NextRequest) {
+  // Create a response object that we'll modify and return
+  const response = NextResponse.next();
+
   try {
-    const res = NextResponse.next();
-    const supabase = createMiddlewareClient<Database>({ req: request, res });
+    // Create supabase client
+    const supabase = createMiddlewareClient<Database>({ 
+      req: request, 
+      res: response 
+    });
 
-    // Refresh session if expired - required for Server Components
-    const { data: { session } } = await supabase.auth.getSession();
+    // Refresh session if expired
+    await supabase.auth.getSession();
 
-    // If accessing a protected route and not authenticated, redirect to login
-    if (!session && !request.nextUrl.pathname.startsWith('/auth/')) {
-      const redirectUrl = request.nextUrl.clone();
-      redirectUrl.pathname = '/auth/login';
+    // Check auth status
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    // Handle protected routes
+    const isAuthRoute = request.nextUrl.pathname.startsWith('/auth');
+    const isProtectedRoute = !request.nextUrl.pathname.match(
+      /^\/(_next|api|static|public|favicon\.ico)/
+    );
+
+    if (!session && isProtectedRoute && !isAuthRoute) {
+      const redirectUrl = new URL('/auth/login', request.url);
       redirectUrl.searchParams.set('redirectTo', request.nextUrl.pathname);
       return NextResponse.redirect(redirectUrl);
     }
 
-    return res;
+    // For auth routes, redirect to dashboard if already logged in
+    if (session && isAuthRoute) {
+      return NextResponse.redirect(new URL('/dashboard', request.url));
+    }
+
+    return response;
   } catch (error) {
     console.error('Middleware error:', error);
-    return NextResponse.next();
+    // Return the original response if there's an error
+    return response;
   }
 }
 
@@ -33,13 +54,12 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public (public files)
-     * - api (API routes)
+     * Match all paths except:
+     * 1. /api routes
+     * 2. /_next (Next.js internals)
+     * 3. /static (inside /public)
+     * 4. all files in /public
      */
-    '/((?!_next/static|_next/image|favicon.ico|public|api|auth).*)',
+    '/((?!api|_next|static|public|favicon.ico).*)',
   ],
 }; 
