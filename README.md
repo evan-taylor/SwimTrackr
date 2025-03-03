@@ -18,7 +18,7 @@ SwimTrackr is a comprehensive swim school management system designed to streamli
 ## Tech Stack
 
 - **Frontend:** Next.js with TypeScript and Tailwind CSS
-- **Backend:** Supabase 
+- **Backend:** Supabase, Custom API
 - **Database:** Supabase PostgreSQL
 - **Authentication:** Supabase Auth
 - **Deployment:** Vercel

@@ -2,6 +2,9 @@ import { getUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import ProfileSettingsForm from './profile-settings-form';
 
+// This page requires dynamic rendering for cookie access
+export const dynamic = 'force-dynamic';
+
 export default async function SettingsPage() {
   const userData = await getUser();
   
