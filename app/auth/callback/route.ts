@@ -1,8 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-import type { NextRequest } from 'next/server';
 import type { Database } from '@/lib/database.types';
 
 export const dynamic = 'force-dynamic';
@@ -13,7 +12,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get('code');
-  const redirectTo = requestUrl.searchParams.get('redirectTo') || '/dashboard';
+  const redirectTo = requestUrl.searchParams.get('next') || '/dashboard';
 
   if (code) {
     try {
@@ -37,16 +36,21 @@ export async function GET(request: NextRequest) {
       );
       
       // Exchange the code for a session
-      await supabase.auth.exchangeCodeForSession(code);
+      const { error } = await supabase.auth.exchangeCodeForSession(code);
+
+      if (error) {
+        console.error('Error exchanging code for session:', error);
+        return NextResponse.redirect(`${requestUrl.origin}/auth/login?error=Authentication failed`);
+      }
 
       // Redirect to the specified page or dashboard
       return NextResponse.redirect(`${requestUrl.origin}${redirectTo}`);
     } catch (error) {
-      console.error('Error exchanging code for session:', error);
-      return NextResponse.redirect(`${requestUrl.origin}/auth/login`);
+      console.error('Error in auth callback:', error);
+      return NextResponse.redirect(`${requestUrl.origin}/auth/login?error=Server error`);
     }
   }
 
-  // If no code provided, redirect to login page
-  return NextResponse.redirect(`${requestUrl.origin}/auth/login`);
+  // If no code is provided, redirect to the login page
+  return NextResponse.redirect(`${requestUrl.origin}/auth/login?error=No code provided`);
 } 

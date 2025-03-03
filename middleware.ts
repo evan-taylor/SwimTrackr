@@ -12,13 +12,13 @@ export const middleware = async (request: NextRequest) => {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        async get(name: string) {
+        get(name: string) {
           return request.cookies.get(name)?.value;
         },
-        async set(name: string, value: string, options: any) {
+        set(name: string, value: string, options: any) {
           res.cookies.set({ name, value, ...options });
         },
-        async remove(name: string, options: any) {
+        remove(name: string, options: any) {
           res.cookies.set({ name, value: '', ...options });
         },
       },
@@ -39,8 +39,9 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * - public folder
+     * - public (public files)
+     * - .well-known (well-known files)
      */
-    '/((?!_next/static|_next/image|favicon.ico|public/).*)',
+    '/((?!_next/static|_next/image|favicon.ico|public|.well-known).*)',
   ],
 }; 
