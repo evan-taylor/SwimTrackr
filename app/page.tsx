@@ -15,134 +15,320 @@ export default async function Home() {
   }
   
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <header className="bg-white/80 backdrop-blur-sm fixed w-full z-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <Image
-              src="/logo.svg"
-              alt="SwimTrackr Logo"
-              width={40}
-              height={40}
-              className="w-10 h-10"
+    <div className="flex flex-col min-h-screen overflow-hidden">
+      {/* Header */}
+      <header className="fixed w-full z-50 bg-white/85 backdrop-blur-sm border-b border-blue-100/50 transition-all duration-300">
+        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <Image 
+              src="/logo.svg" 
+              alt="SwimTrackr Logo" 
+              width={36} 
+              height={36}
+              className="transition-transform hover:scale-110 duration-300" 
             />
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
               SwimTrackr
-            </h1>
+            </span>
+          </div>
+          <nav className="hidden md:flex items-center gap-8">
+            <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
+            <a href="#testimonials" className="text-gray-600 hover:text-blue-600 transition-colors">Testimonials</a>
+          </nav>
+          <div className="flex items-center gap-4">
+            <Link 
+              href="/auth/login" 
+              className="hidden sm:inline-block px-4 py-2 text-blue-600 hover:text-blue-700 transition-colors"
+            >
+              Login
+            </Link>
+            <Link 
+              href="/auth/register" 
+              className="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+            >
+              Get Started
+            </Link>
           </div>
         </div>
       </header>
-      
-      <main className="flex-grow pt-20">
-        {/* Hero section */}
-        <section className="relative py-20 md:py-32 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent"></div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight">
-                <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  The Future of
-                </span>
-                <br />
-                <span className="text-gray-900">Swim School Management</span>
-              </h1>
-              <p className="mt-8 text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-                A revolutionary platform transforming how swim schools operate. 
-                Seamlessly manage sessions, track progress, and enhance the learning experience.
-              </p>
-              <div className="mt-12">
-                <Link
-                  href="#features"
-                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-full hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-                >
-                  Discover Features
-                </Link>
+
+      {/* Hero Section */}
+      <section className="relative pt-28 pb-20 md:py-40 bg-gradient-to-b from-blue-50 to-white overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute w-[600px] h-[600px] -right-64 -top-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+        <div className="absolute w-[500px] h-[500px] -bottom-64 -left-40 bg-cyan-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-1/4 right-1/4 w-12 h-12 bg-blue-200 rounded-full filter blur-xl opacity-50 animate-float animation-delay-1000"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-10 h-10 bg-cyan-200 rounded-full filter blur-xl opacity-50 animate-float animation-delay-500"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight animate-fade-in">
+              <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                Transform
+              </span>
+              <br />
+              <span className="text-gray-900">Your Swim School</span>
+            </h1>
+            <p className="mt-8 text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto animate-fade-in animation-delay-500">
+              The intelligent platform revolutionizing how swim schools operate.
+              Track progress, manage classes, and provide a superior experience for students
+              and instructors alike.
+            </p>
+            <div className="mt-12 flex flex-col sm:flex-row gap-5 justify-center items-center animate-fade-in animation-delay-1000">
+              <Link
+                href="/auth/register"
+                className="px-8 py-4 text-lg font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-full hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 w-full sm:w-auto flex justify-center items-center gap-2 animate-pulse-blue"
+              >
+                Get Started Free
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </Link>
+              <Link
+                href="#features"
+                className="px-8 py-4 text-lg font-medium text-blue-600 border border-blue-200 rounded-full hover:border-blue-300 hover:bg-blue-50 transition-all duration-200 w-full sm:w-auto flex justify-center items-center gap-2"
+              >
+                See How It Works
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+          
+          <div className="mt-16 max-w-5xl mx-auto rounded-2xl shadow-2xl overflow-hidden border border-blue-100 perspective animate-fade-in animation-delay-1500">
+            <div className="relative card-3d">
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10"></div>
+              <Image
+                src="/SwimTrackr-Box-Logo.png"
+                alt="SwimTrackr Dashboard Preview"
+                width={1200}
+                height={675}
+                className="w-full h-auto"
+              />
+              {/* Floating elements on the image */}
+              <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-sm p-3 rounded-lg shadow-lg transform hover-lift animate-float animation-delay-1000">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <span className="text-sm font-medium text-gray-800">Live Updates</span>
+                </div>
+              </div>
+              <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm p-3 rounded-lg shadow-lg transform hover-lift animate-float">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                  <span className="text-sm font-medium text-gray-800">Smart Analytics</span>
+                </div>
               </div>
             </div>
           </div>
-        </section>
-        
-        {/* Features section */}
-        <section id="features" className="py-20 md:py-32">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-20">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Powerful Features</h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Everything you need to revolutionize your swim school operations
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="py-20 md:py-32 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Powerful Features</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Everything you need to revolutionize your swim school operations
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Feature 1 */}
+            <div className="bg-gradient-to-br from-white to-blue-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 group">
+              <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-500">
+                <svg className="w-7 h-7 text-blue-600 group-hover:text-white transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">Smart Session Management</h3>
+              <p className="text-gray-600">
+                Intelligent scheduling and attendance tracking for optimized class management. Never double-book instructors or pools again.
               </p>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="bg-gradient-to-br from-white to-blue-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 group">
+              <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-500">
+                <svg className="w-7 h-7 text-blue-600 group-hover:text-white transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">Progress Analytics</h3>
+              <p className="text-gray-600">
+                Advanced tracking and reporting for student skill development. Visualize improvement and identify areas needing attention.
+              </p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="bg-gradient-to-br from-white to-blue-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 group">
+              <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-500">
+                <svg className="w-7 h-7 text-blue-600 group-hover:text-white transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">Parent Portal</h3>
+              <p className="text-gray-600">
+                Give parents real-time visibility into their child's progress, upcoming classes, and achievement milestones.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section id="testimonials" className="py-20 md:py-32 bg-gradient-to-b from-blue-50 to-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What Our Users Say</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Join hundreds of swim schools already transforming their operations
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Testimonial 1 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+              <div className="flex items-center mb-4">
+                <div className="text-yellow-400 flex">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                    </svg>
+                  ))}
+                </div>
+              </div>
+              <p className="text-gray-600 mb-6 italic">
+                "SwimTrackr has completely transformed how we manage our swim school. The intuitive interface and comprehensive features have saved us countless hours."
+              </p>
+              <div className="flex items-center">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-blue-600 font-semibold">JD</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Jane Doe</h4>
+                  <p className="text-sm text-gray-500">Aqua Swim Academy</p>
+                </div>
+              </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Feature cards */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1">
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                  </svg>
+            {/* Testimonial 2 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+              <div className="flex items-center mb-4">
+                <div className="text-yellow-400 flex">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                    </svg>
+                  ))}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Smart Session Management</h3>
-                <p className="text-gray-600">
-                  Intelligent scheduling and attendance tracking for optimized class management.
-                </p>
               </div>
-
-              <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1">
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
+              <p className="text-gray-600 mb-6 italic">
+                "The progress tracking feature is a game-changer. Parents love the transparency, and our instructors can provide better, more personalized instruction."
+              </p>
+              <div className="flex items-center">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-blue-600 font-semibold">MS</span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Progress Analytics</h3>
-                <p className="text-gray-600">
-                  Advanced tracking and reporting for student skill development and achievements.
-                </p>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Michael Smith</h4>
+                  <p className="text-sm text-gray-500">Elite Swimming</p>
+                </div>
               </div>
-
-              <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1">
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                  </svg>
+            </div>
+            
+            {/* Testimonial 3 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+              <div className="flex items-center mb-4">
+                <div className="text-yellow-400 flex">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                    </svg>
+                  ))}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Instructor Dashboard</h3>
-                <p className="text-gray-600">
-                  Comprehensive tools for instructors to manage classes and student progress.
-                </p>
+              </div>
+              <p className="text-gray-600 mb-6 italic">
+                "We've increased our enrollment by 30% since implementing SwimTrackr. The efficiency gains have allowed us to focus on growth instead of administration."
+              </p>
+              <div className="flex items-center">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-blue-600 font-semibold">AR</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Amanda Rodriguez</h4>
+                  <p className="text-sm text-gray-500">Splash Zone</p>
+                </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Coming Soon section */}
-        <section className="py-20 bg-gradient-to-br from-blue-50 to-white">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Coming Soon</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              We're working hard to bring you the most advanced swim school management platform. 
-              Stay tuned for updates!
+      {/* CTA Section */}
+      <section className="py-20 md:py-32 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Ready to Transform Your Swim School?</h2>
+            <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+              Join hundreds of swim schools already using SwimTrackr to improve their operations,
+              enhance student experience, and grow their business.
             </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Link
+                href="/auth/register"
+                className="px-8 py-4 text-lg font-medium text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl w-full sm:w-auto transform hover:-translate-y-1 duration-300"
+              >
+                Start Free Trial
+              </Link>
+              <Link
+                href="/contact"
+                className="px-8 py-4 text-lg font-medium text-blue-600 border border-blue-200 rounded-xl hover:border-blue-300 hover:bg-blue-50 transition-all w-full sm:w-auto transform hover:-translate-y-1 duration-300"
+              >
+                Schedule Demo
+              </Link>
+            </div>
           </div>
-        </section>
-      </main>
-      
-      <footer className="bg-white border-t border-gray-100 py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center">
-            <div className="flex items-center space-x-2 mb-4">
-              <Image
-                src="/logo.svg"
-                alt="SwimTrackr Logo"
-                width={32}
-                height={32}
-                className="w-8 h-8"
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-50 py-12 border-t border-gray-100">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center gap-2 mb-4 md:mb-0">
+              <Image 
+                src="/logo.svg" 
+                alt="SwimTrackr Logo" 
+                width={32} 
+                height={32} 
               />
-              <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
                 SwimTrackr
-              </h2>
+              </span>
             </div>
-            <p className="text-sm text-gray-500">
-              &copy; {new Date().getFullYear()} SwimTrackr. All rights reserved.
-            </p>
+            <div className="flex gap-8">
+              <a href="#features" className="text-gray-500 hover:text-blue-600 transition-colors">Features</a>
+              <a href="#testimonials" className="text-gray-500 hover:text-blue-600 transition-colors">Testimonials</a>
+              <a href="#" className="text-gray-500 hover:text-blue-600 transition-colors">Privacy</a>
+              <a href="#" className="text-gray-500 hover:text-blue-600 transition-colors">Terms</a>
+            </div>
+            <div className="flex gap-4 mt-4 md:mt-0">
+              <a href="#" aria-label="Facebook" className="text-gray-400 hover:text-blue-600 transition-colors">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                </svg>
+              </a>
+              <a href="#" aria-label="Twitter" className="text-gray-400 hover:text-blue-600 transition-colors">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.016 10.016 0 01-3.127 1.195 4.92 4.92 0 00-8.384 4.482A13.978 13.978 0 011.64 3.162a4.92 4.92 0 001.522 6.574 4.9 4.9 0 01-2.23-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.937 4.937 0 004.604 3.417 9.868 9.868 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.9 13.9 0 007.548 2.209c9.054 0 14-7.497 14-13.987 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59l-.047-.02z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div className="pt-8 border-t border-gray-200 text-center text-gray-500 text-sm mt-8">
+            <p>&copy; {new Date().getFullYear()} SwimTrackr. All rights reserved.</p>
           </div>
         </div>
       </footer>

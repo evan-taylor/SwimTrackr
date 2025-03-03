@@ -5,9 +5,11 @@ import { UserRole } from './database.types';
 
 // Get the current user's profile from server components
 export async function getUser() {
-  const supabase = createServerSupabaseClient();
+  const cookieStore = await cookies();
   
   try {
+    const supabase = await createServerSupabaseClient();
+    
     const { data: { user } } = await supabase.auth.getUser();
     
     if (!user) {
@@ -115,7 +117,7 @@ export async function canManageFacility(facilityId: string) {
 
 // Log the user out and clear cookies
 export async function logout() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   cookieStore.delete('sb-auth-token');
   return redirect('/auth/login');
-} 
+}
