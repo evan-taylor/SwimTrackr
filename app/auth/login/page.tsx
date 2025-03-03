@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import LoginForm from './login-form';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Login - SwimTrackr',
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function Login() {
-  return <LoginForm />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginForm />
+    </Suspense>
+  );
 } 

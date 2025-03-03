@@ -3,6 +3,9 @@ import { getUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 
+// Force dynamic rendering for cookie access
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const userData = await getUser();
   
