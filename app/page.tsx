@@ -114,28 +114,30 @@ export default function Home() {
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight animate-fade-in">
-                <span className="bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300 bg-clip-text text-transparent">
-                  Reimagine
-                </span>
-                <br />
-                <span className="text-gray-900 dark:text-white">Swim School Management</span>
-              </h1>
-              <p className="mt-8 text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto animate-fade-in animation-delay-500 font-light">
-                SwimTrackr is revolutionizing how swim schools operate with intelligent progress tracking, 
-                streamlined class management, and powerful analytics.
-              </p>
-              <div className="mt-12 flex justify-center items-center animate-fade-in animation-delay-1000">
-                <a
-                  href="#waitlist"
-                  className="inline-flex items-center px-8 py-4 text-lg font-medium text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 dark:from-blue-500 dark:to-cyan-400 dark:hover:from-blue-600 dark:hover:to-cyan-500 rounded-full transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-                  aria-label="Join our waitlist"
-                >
-                  Join the Waitlist
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </a>
+              <div className="animate-fade-in">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
+                  <span className="bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300 bg-clip-text text-transparent">
+                    Reimagine
+                  </span>
+                  <br />
+                  <span className="text-gray-900 dark:text-white">Swim School Management</span>
+                </h1>
+                <p className="mt-8 text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto font-light">
+                  SwimTrackr is revolutionizing how swim schools operate with intelligent progress tracking, 
+                  streamlined class management, and powerful analytics.
+                </p>
+                <div className="mt-12 flex justify-center items-center">
+                  <a
+                    href="#waitlist"
+                    className="inline-flex items-center px-8 py-4 text-lg font-medium text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 dark:from-blue-500 dark:to-cyan-400 dark:hover:from-blue-600 dark:hover:to-cyan-500 rounded-full transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                    aria-label="Join our waitlist"
+                  >
+                    Join the Waitlist
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
