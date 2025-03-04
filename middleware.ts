@@ -4,8 +4,12 @@ import type { NextRequest } from 'next/server';
 
 export const middleware = async (request: NextRequest) => {
   // Create a response object
-  const res = NextResponse.next();
+  let response = NextResponse.next();
 
+  // Check if the request is for a protected route
+  const requestUrl = new URL(request.url);
+  const isProtectedRoute = requestUrl.pathname.startsWith('/dashboard');
+  
   // Create a Supabase client configured to use cookies
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -16,19 +20,26 @@ export const middleware = async (request: NextRequest) => {
           return request.cookies.get(name)?.value;
         },
         set(name: string, value: string, options: any) {
-          res.cookies.set({ name, value, ...options });
+          response.cookies.set({ name, value, ...options });
         },
         remove(name: string, options: any) {
-          res.cookies.set({ name, value: '', ...options });
+          response.cookies.set({ name, value: '', ...options });
         },
       },
     }
   );
 
-  // Refresh the session if it exists
-  await supabase.auth.getSession();
+  // Refresh the session
+  const { data: { session } } = await supabase.auth.getSession();
 
-  return res;
+  // If accessing a protected route without a session, redirect to login
+  if (isProtectedRoute && !session) {
+    const redirectUrl = new URL('/auth/login', requestUrl.origin);
+    redirectUrl.searchParams.set('redirectTo', requestUrl.pathname);
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  return response;
 };
 
 // Ensure the middleware is only called for relevant paths

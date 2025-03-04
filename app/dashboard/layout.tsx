@@ -25,9 +25,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   useEffect(() => {
     async function getUserProfile() {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user }, error: userError } = await supabase.auth.getUser();
         
-        if (!user) {
+        if (userError || !user) {
+          console.error('Authentication error:', userError);
           router.push('/auth/login');
           return;
         }
@@ -39,19 +40,26 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           .single();
         
         if (error) {
-          throw error;
+          console.error('Profile error:', error);
+          if (error.code === 'PGRST116') {
+            // No profile found, redirect to create profile or handle new user
+            console.log('No profile found for user');
+          }
+          setLoading(false);
+          return;
         }
         
         setProfile(data);
       } catch (error) {
         console.error('Error fetching user profile:', error);
+        router.push('/auth/login');
       } finally {
         setLoading(false);
       }
     }
     
     getUserProfile();
-  }, [supabase, router]);
+  }, [router, supabase]);
   
   const handleSignOut = async () => {
     await supabase.auth.signOut();

@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.redirect(`${requestUrl.origin}/auth/login?error=Authentication failed`);
       }
 
-      // Redirect to the specified page or dashboard
+      // Redirect to the specified page or dashboard with absolute URL
       return NextResponse.redirect(`${requestUrl.origin}${redirectTo}`);
     } catch (error) {
       console.error('Error in auth callback:', error);
