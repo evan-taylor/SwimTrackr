@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect } from 'react';
-import Link from 'next/link';
 
 export default function Error({
   error,
@@ -16,26 +15,24 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4">
-      <div className="p-8 bg-white rounded-lg shadow-lg text-center max-w-lg">
-        <h1 className="text-3xl font-bold text-red-600 mb-4">Something went wrong!</h1>
-        <p className="text-gray-700 mb-6">
-          We're sorry, but there was an error processing your request.
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-4">
+      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
+        <h2 className="mb-4 text-2xl font-bold text-red-600">Something went wrong!</h2>
+        <p className="mb-4 text-gray-600">
+          An unexpected error occurred. Our team has been notified.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button
-            onClick={() => reset()}
-            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-          >
-            Try again
-          </button>
-          <Link
-            href="/"
-            className="px-6 py-2 bg-gray-100 text-gray-800 rounded-md hover:bg-gray-200 transition-colors"
-          >
-            Go back home
-          </Link>
-        </div>
+        {process.env.NODE_ENV === 'development' && (
+          <div className="mb-4 rounded bg-gray-100 p-4">
+            <p className="font-mono text-sm text-gray-800">{error.message}</p>
+            <p className="mt-2 font-mono text-xs text-gray-600">{error.stack}</p>
+          </div>
+        )}
+        <button
+          onClick={reset}
+          className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        >
+          Try again
+        </button>
       </div>
     </div>
   );
