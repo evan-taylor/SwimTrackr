@@ -34,7 +34,7 @@ export default function LoginForm() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?redirectTo=${redirectTo}`,
+          redirectTo: `${window.location.origin}/auth/callback?next=${redirectTo}`,
         },
       });
 
@@ -58,7 +58,7 @@ export default function LoginForm() {
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback?redirectTo=${redirectTo}`,
+          emailRedirectTo: `${window.location.origin}/auth/callback?next=${redirectTo}`,
         },
       });
 
